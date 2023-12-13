@@ -22,10 +22,10 @@ public class ProdutoController : ControllerBase
     }
 
     // GET: api/Produto/5
-    [HttpGet("{codigo}")]
-    public async Task<ActionResult<ProdutoModel>> GetProduto(string codigo)
+    [HttpGet("{id}")]
+    public async Task<ActionResult<ProdutoModel>> GetProduto(string id)
     {
-        var produto = await _context.Produtos.FindAsync(codigo);
+        var produto = await _context.Produtos.FindAsync(id);
 
         if (produto == null)
         {
