@@ -13,6 +13,9 @@ public class ProdutoController : ControllerBase
     private readonly IProdutoService _produtoService;
     private readonly ILogger<ProdutoController> _logger;
 
+    public const uint pageNumber = 1;
+    public const uint pageSize = 25;
+
     public ProdutoController(ILogger<ProdutoController> logger, IProdutoService produtoService)
     {
         _logger = logger;
@@ -22,6 +25,8 @@ public class ProdutoController : ControllerBase
     /// <summary>
     /// Lista de Produtos Cadastrados
     /// </summary>
+    /// <param name="pageNumber">pageNumber</param>
+    /// <param name="pageSize">pageSize</param>
     /// <returns>Objeto JSON</returns>
     /// <response code="200">Retorna a lista de produtos cadastrados.</response>
     /// <response code="400">Se os dados forem Inválidos.</response>
@@ -36,12 +41,12 @@ public class ProdutoController : ControllerBase
     [ProducesResponseType(typeof(ResultError), StatusCodes.Status403Forbidden)]
     [ProducesResponseType(typeof(ResultError), StatusCodes.Status417ExpectationFailed)]
     [ProducesResponseType(typeof(ResultError), StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult<List<RequestModel<ProdutoDTO>>>> GetProdutosAsync()
+    public async Task<ActionResult<RequestModel<ListModel<ProdutoDTO>>>> GetProdutosAsync([FromQuery] uint pageNumber = pageNumber, [FromQuery] uint pageSize = pageSize)
       {
          try
          {
-            var listaProdutos = await _produtoService.GetProdutosAsync();
-            var response = new RequestModel<List<ProdutoDTO>>
+            var listaProdutos = await _produtoService.GetProdutosAsync(pageNumber, pageSize);
+            var response = new RequestModel<ListModel<ProdutoDTO>>
             {
                Details = listaProdutos,
                Status = (int)HttpStatusCode.OK,
@@ -61,7 +66,7 @@ public class ProdutoController : ControllerBase
                DateTimeOffset.Now
             ));
          }
-      }
+    }
 
     /// <summary>
     /// Produto pelo Código

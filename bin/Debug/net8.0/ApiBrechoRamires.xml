@@ -28,10 +28,12 @@
         <member name="M:ApiBrechoRamires.Migrations.AdicionandoTipo.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
-        <member name="M:ProdutoController.GetProdutosAsync">
+        <member name="M:ProdutoController.GetProdutosAsync(System.UInt32,System.UInt32)">
             <summary>
             Lista de Produtos Cadastrados
             </summary>
+            <param name="pageNumber">pageNumber</param>
+            <param name="pageSize">pageSize</param>
             <returns>Objeto JSON</returns>
             <response code="200">Retorna a lista de produtos cadastrados.</response>
             <response code="400">Se os dados forem Inválidos.</response>

@@ -2,6 +2,7 @@ using ApiBrechoRamires.Context;
 using ApiBrechoRamires.DTO;
 using ApiBrechoRamires.Models;
 using ApiBrechoRamires.Services.Produto;
+using ApiBrechoRamires.ViewModels.ResponseModels;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,28 +18,42 @@ namespace ApiBrechoRamires.Services
         }
 
         #region GETS
-        public async Task<List<ProdutoDTO>> GetProdutosAsync() {
+        public async Task<ListModel<ProdutoDTO>> GetProdutosAsync(uint pageNumber, uint pageSize) {
             try
+            {          
+            var produtos = await _context.Produtos
+            .Skip((int)((pageNumber - 1) * pageSize))
+            .Take((int)pageSize)
+            .Select(produto => new ProdutoDTO
             {
-                var produtos = await _context.Produtos
-                .Select(produto => new ProdutoDTO
-                {
-                    Codigo = produto.Codigo!,
-                    Nome = produto.Nome,
-                    Quantidade = produto.Quantidade,
-                    Marca = produto.Marca,
-                    Tipo = produto.Tipo,
-                    Categoria = produto.Categoria,
-                    Cor = produto.Cor,
-                    Tamanho = produto.Tamanho,
-                    PrecoPago = produto.PrecoPago,
-                    Preco = produto.Preco,
-                    Origem = produto.Origem,
-                    Dono = produto.Dono
-                })
-                .ToListAsync();
+                Codigo = produto.Codigo!,
+                Nome = produto.Nome,
+                Quantidade = produto.Quantidade,
+                Marca = produto.Marca,
+                Tipo = produto.Tipo,
+                Categoria = produto.Categoria,
+                Cor = produto.Cor,
+                Tamanho = produto.Tamanho,
+                PrecoPago = produto.PrecoPago,
+                Preco = produto.Preco,
+                Origem = produto.Origem,
+                Dono = produto.Dono
+            })
+            .ToListAsync();
 
-            return produtos;
+            var totalRecords = await _context.Produtos.CountAsync();
+            var totalPages = (int)Math.Ceiling(totalRecords / (double)pageSize);
+
+            var listModel = new ListModel<ProdutoDTO>
+            {
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalNumberOfPages = totalPages,
+                TotalNumberOfRecords = totalRecords,
+                Results = produtos
+            };
+
+            return listModel;
             }
             catch (Exception)
             {

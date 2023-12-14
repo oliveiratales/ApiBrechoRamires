@@ -1,5 +1,6 @@
 using ApiBrechoRamires.DTO;
 using ApiBrechoRamires.Models;
+using ApiBrechoRamires.ViewModels.ResponseModels;
 
 namespace ApiBrechoRamires.Services.Produto
 {
@@ -7,7 +8,7 @@ namespace ApiBrechoRamires.Services.Produto
     {
 
         #region GETS
-        Task<List<ProdutoDTO>> GetProdutosAsync();
+        Task<ListModel<ProdutoDTO>> GetProdutosAsync(uint pageNumber, uint pageSize);
         Task<ProdutoDTO?> GetProdutoByIdAsync(string codigo);
 
         #endregion
