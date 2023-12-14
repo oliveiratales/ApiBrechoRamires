@@ -19,6 +19,9 @@ namespace ApiBrechoRamires.DTO
         public required string Categoria { get; set; }
 
         [Required]
+        public required int Tipo { get; set; }
+
+        [Required]
         public required string Cor { get; set; }
 
         [Required]
@@ -31,5 +34,7 @@ namespace ApiBrechoRamires.DTO
 
         [Required]
         public int Origem { get; set; }
+
+        public string? Dono { get; set; }
     }
 }

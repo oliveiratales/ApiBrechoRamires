@@ -16,6 +16,18 @@
         <member name="M:ApiBrechoRamires.Migrations.Teste.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
+        <member name="T:ApiBrechoRamires.Migrations.AdicionandoTipo">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.AdicionandoTipo.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.AdicionandoTipo.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.AdicionandoTipo.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
         <member name="M:ProdutoController.GetProdutosAsync">
             <summary>
             Lista de Produtos Cadastrados
@@ -35,6 +47,45 @@
             <param name="codigo">Código do produto</param>
             <returns>Objeto JSON</returns>
             <response code="200">Retorna o produto pelo código.</response>
+            <response code="400">Se os dados forem Inválidos.</response>
+            <response code="401">Não autorizado.</response>
+            <response code="403">Acesso negado.</response>
+            <response code="417">Se os dados forem Inválidos.</response>
+            <response code="500">Se houver algum problema com o servidor.</response>
+        </member>
+        <member name="M:ProdutoController.PostProdutoAsync(ApiBrechoRamires.Models.ProdutoModel)">
+            <summary>
+            Registrar um produto
+            </summary>
+            <returns>Objeto JSON</returns>
+            <response code="200">Registra um novo produto.</response>
+            <response code="400">Se os dados forem Inválidos.</response>
+            <response code="401">Não autorizado.</response>
+            <response code="403">Acesso negado.</response>
+            <response code="417">Se os dados forem Inválidos.</response>
+            <response code="500">Se houver algum problema com o servidor.</response>
+        </member>
+        <member name="M:ProdutoController.DeleteProdutoAsync(System.String)">
+            <summary>
+            Apagar Produto pelo Código
+            </summary>
+            <param name="codigo">Código do produto</param>
+            <returns>Objeto JSON</returns>
+            <response code="200">Retorna o produto deletado.</response>
+            <response code="400">Se os dados forem Inválidos.</response>
+            <response code="401">Não autorizado.</response>
+            <response code="403">Acesso negado.</response>
+            <response code="417">Se os dados forem Inválidos.</response>
+            <response code="500">Se houver algum problema com o servidor.</response>
+        </member>
+        <member name="M:ProdutoController.EditProdutoAsync(System.String,ApiBrechoRamires.Models.ProdutoModel)">
+            <summary>
+            Editar Produto pelo Código
+            </summary>
+            <param name="codigo">Código do produto</param>
+            <param name="model">Modelo de dados do produto</param>
+            <returns>Objeto JSON</returns>
+            <response code="200">Retorna o produto deletado.</response>
             <response code="400">Se os dados forem Inválidos.</response>
             <response code="401">Não autorizado.</response>
             <response code="403">Acesso negado.</response>
