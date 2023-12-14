@@ -11,7 +11,7 @@ namespace ApiBrechoRamires.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     [Migration("20231213002608_teste")]
-    partial class teste
+    partial class Teste
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

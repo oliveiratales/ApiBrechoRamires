@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ApiBrechoRamires")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bafac7b429dc638b0c0001a8ffd9e065fcbdeb7b")]
 [assembly: System.Reflection.AssemblyProductAttribute("ApiBrechoRamires")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ApiBrechoRamires")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

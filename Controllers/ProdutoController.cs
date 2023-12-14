@@ -1,94 +1,110 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using ApiBrechoRamires.Models;
-using ApiBrechoRamires.Context;
+using ApiBrechoRamires.ViewModels.ResponseModels;
+using ApiBrechoRamires.DTO;
+using ApiBrechoRamires.ViewModels.Errors;
+using ApiBrechoRamires.Services.Produto;
+using System.Net;
 
 [Route("api/[controller]")]
 [ApiController]
 public class ProdutoController : ControllerBase
 {
-    private readonly AppDbContext _context;
+    private readonly IProdutoService _produtoService;
+    private readonly ILogger<ProdutoController> _logger;
 
-    public ProdutoController(AppDbContext context)
+    public ProdutoController(ILogger<ProdutoController> logger, IProdutoService produtoService)
     {
-        _context = context;
+        _logger = logger;
+        _produtoService = produtoService;
     }
 
-    // GET: api/Produto
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<ProdutoModel>>> GetProdutos()
-    {
-        return await _context.Produtos.ToListAsync();
-    }
+    /// <summary>
+    /// Lista de Produtos Cadastrados
+    /// </summary>
+    /// <returns>Objeto JSON</returns>
+    /// <response code="200">Retorna a lista de produtos cadastrados.</response>
+    /// <response code="400">Se os dados forem Inválidos.</response>
+    /// <response code="401">Não autorizado.</response>
+    /// <response code="403">Acesso negado.</response>
+    /// <response code="417">Se os dados forem Inválidos.</response>
+    /// <response code="500">Se houver algum problema com o servidor.</response>
+    [HttpGet("produto/GetProdutosAsync")]
+    [ProducesResponseType(typeof(RequestModel<ProdutoDTO>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResultError), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ResultError), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ResultError), StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(typeof(ResultError), StatusCodes.Status417ExpectationFailed)]
+    [ProducesResponseType(typeof(ResultError), StatusCodes.Status500InternalServerError)]
+    public async Task<ActionResult<List<RequestModel<ProdutoDTO>>>> GetProdutosAsync()
+      {
+         try
+         {
+            var listaProdutos = await _produtoService.GetProdutosAsync();
+            var response = new RequestModel<List<ProdutoDTO>>
+            {
+               Details = listaProdutos,
+               Status = (int)HttpStatusCode.OK,
+               Error = null,
+               TimestampUtc = DateTimeOffset.Now
+            };
 
-    // GET: api/Produto/5
-    [HttpGet("{id}")]
-    public async Task<ActionResult<ProdutoModel>> GetProduto(string id)
-    {
-        var produto = await _context.Produtos.FindAsync(id);
+            return Ok(response);
+         }
+         catch (Exception ex)
+         {
+            _logger.LogError(ex.HResult, "Erro ao obter a lista de produtos.");
+            return StatusCode(500, new ResultError
+            (
+               $"Erro interno do servidor: {ex.Message}",
+               (short)HttpStatusCode.InternalServerError,
+               DateTimeOffset.Now
+            ));
+         }
+      }
 
-        if (produto == null)
-        {
-            return NotFound();
-        }
-
-        return produto;
-    }
-
-    // POST: api/Produto
-    [HttpPost]
-    public async Task<ActionResult<ProdutoModel>> PostProduto(ProdutoModel produto)
-    {
-        _context.Produtos.Add(produto);
-        await _context.SaveChangesAsync();
-
-        return CreatedAtAction("GetProduto", new { codigo = produto.Codigo }, produto);
-    }
-
-    // PUT: api/Produto/5
-    [HttpPut("{codigo}")]
-    public async Task<IActionResult> PutProduto(string codigo, ProdutoModel produto)
-    {
-        if (codigo != produto.Codigo)
-        {
-            return BadRequest();
-        }
-
-        _context.Entry(produto).State = EntityState.Modified;
-
+    /// <summary>
+    /// Produto pelo Código
+    /// </summary>
+    /// <param name="codigo">Código do produto</param>
+    /// <returns>Objeto JSON</returns>
+    /// <response code="200">Retorna o produto pelo código.</response>
+    /// <response code="400">Se os dados forem Inválidos.</response>
+    /// <response code="401">Não autorizado.</response>
+    /// <response code="403">Acesso negado.</response>
+    /// <response code="417">Se os dados forem Inválidos.</response>
+    /// <response code="500">Se houver algum problema com o servidor.</response>
+    [HttpGet("produto/GetProdutoByIdAsync/{codigo}")]
+    [ProducesResponseType(typeof(RequestModel<ProdutoDTO>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResultError), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ResultError), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ResultError), StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(typeof(ResultError), StatusCodes.Status417ExpectationFailed)]
+    [ProducesResponseType(typeof(ResultError), StatusCodes.Status500InternalServerError)]
+    public async Task<ActionResult<RequestModel<ProdutoDTO>>> GetProdutoByIdAsync([FromRoute] string codigo)
+      {
         try
         {
-            await _context.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            if (!_context.Produtos.Any(e => e.Codigo == codigo))
+            var produto = await _produtoService.GetProdutoByIdAsync(codigo);
+
+            if (produto == null)
             {
-                return NotFound();
+                return NotFound(new ResultError($"Produto com código {codigo} não encontrado.", (short)HttpStatusCode.NotFound, DateTimeOffset.Now));
             }
-            else
+
+            var response = new RequestModel<ProdutoDTO>
             {
-                throw;
-            }
+               Details = produto,
+               Status = (int)HttpStatusCode.OK,
+               Error = null,
+               TimestampUtc = DateTimeOffset.Now
+            };
+
+            return Ok(response);
         }
-
-        return NoContent();
-    }
-
-    // DELETE: api/Produto/5
-    [HttpDelete("{codigo}")]
-    public async Task<IActionResult> DeleteProduto(string codigo)
-    {
-        var produto = await _context.Produtos.FindAsync(codigo);
-
-        if (produto == null)
+        catch (Exception ex)
         {
-            return NotFound();
+            _logger.LogError(ex, $"Erro ao obter o produto com código {codigo}.");
+            return StatusCode((int)HttpStatusCode.InternalServerError, new ResultError($"Erro interno do servidor: {ex.Message}", (short)HttpStatusCode.InternalServerError, DateTimeOffset.Now));
         }
-
-        _context.Produtos.Remove(produto);
-        await _context.SaveChangesAsync();
-
-        return NoContent();
-    }
+      }
 }

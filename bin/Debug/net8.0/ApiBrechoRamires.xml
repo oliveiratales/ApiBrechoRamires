@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ApiBrechoRamires</name>
+    </assembly>
+    <members>
+        <member name="T:ApiBrechoRamires.Migrations.Teste">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.Teste.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.Teste.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.Teste.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ProdutoController.GetProdutosAsync">
+            <summary>
+            Lista de Produtos Cadastrados
+            </summary>
+            <returns>Objeto JSON</returns>
+            <response code="200">Retorna a lista de produtos cadastrados.</response>
+            <response code="400">Se os dados forem Inválidos.</response>
+            <response code="401">Não autorizado.</response>
+            <response code="403">Acesso negado.</response>
+            <response code="417">Se os dados forem Inválidos.</response>
+            <response code="500">Se houver algum problema com o servidor.</response>
+        </member>
+        <member name="M:ProdutoController.GetProdutoByIdAsync(System.String)">
+            <summary>
+            Produto pelo Código
+            </summary>
+            <param name="codigo">Código do produto</param>
+            <returns>Objeto JSON</returns>
+            <response code="200">Retorna o produto pelo código.</response>
+            <response code="400">Se os dados forem Inválidos.</response>
+            <response code="401">Não autorizado.</response>
+            <response code="403">Acesso negado.</response>
+            <response code="417">Se os dados forem Inválidos.</response>
+            <response code="500">Se houver algum problema com o servidor.</response>
+        </member>
+    </members>
+</doc>

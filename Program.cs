@@ -1,4 +1,7 @@
+using System.Reflection;
 using ApiBrechoRamires.Context;
+using ApiBrechoRamires.Services;
+using ApiBrechoRamires.Services.Produto;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -7,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IProdutoService, ProdutoService>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
@@ -17,7 +21,14 @@ if (builder.Environment.IsDevelopment())
 {
     builder.Services.AddSwaggerGen(c =>
     {
-        c.SwaggerDoc("v1", new() { Title = "Api Brecho Ramires", Version = "v1", Description = "API do sistema do Brech� Ramires, para gest�o do fluxo de dados." });
+        c.SwaggerDoc("v1", new() { 
+            Title = "Api Brechó Ramires", 
+            Version = "v1", 
+            Description = "API do sistema do Brechó Ramires, para gestão de estoque e vendas." });
+
+        var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+            c.IncludeXmlComments(xmlPath);
     });
 
     builder.Services.AddCors(options =>
