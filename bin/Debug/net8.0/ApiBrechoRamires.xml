@@ -4,28 +4,16 @@
         <name>ApiBrechoRamires</name>
     </assembly>
     <members>
-        <member name="T:ApiBrechoRamires.Migrations.Teste">
+        <member name="T:ApiBrechoRamires.Migrations.Vendas">
             <inheritdoc />
         </member>
-        <member name="M:ApiBrechoRamires.Migrations.Teste.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+        <member name="M:ApiBrechoRamires.Migrations.Vendas.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
             <inheritdoc />
         </member>
-        <member name="M:ApiBrechoRamires.Migrations.Teste.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+        <member name="M:ApiBrechoRamires.Migrations.Vendas.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
             <inheritdoc />
         </member>
-        <member name="M:ApiBrechoRamires.Migrations.Teste.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="T:ApiBrechoRamires.Migrations.AdicionandoTipo">
-            <inheritdoc />
-        </member>
-        <member name="M:ApiBrechoRamires.Migrations.AdicionandoTipo.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:ApiBrechoRamires.Migrations.AdicionandoTipo.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:ApiBrechoRamires.Migrations.AdicionandoTipo.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+        <member name="M:ApiBrechoRamires.Migrations.Vendas.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
         <member name="M:ProdutoController.GetProdutosAsync(System.UInt32,System.UInt32)">
@@ -85,6 +73,72 @@
             Editar Produto pelo Código
             </summary>
             <param name="codigo">Código do produto</param>
+            <param name="model">Modelo de dados do produto</param>
+            <returns>Objeto JSON</returns>
+            <response code="200">Retorna o produto deletado.</response>
+            <response code="400">Se os dados forem Inválidos.</response>
+            <response code="401">Não autorizado.</response>
+            <response code="403">Acesso negado.</response>
+            <response code="417">Se os dados forem Inválidos.</response>
+            <response code="500">Se houver algum problema com o servidor.</response>
+        </member>
+        <member name="M:VendaController.GetVendasAsync(System.UInt32,System.UInt32)">
+            <summary>
+            Lista de Vendas Cadastradas
+            </summary>
+            <param name="pageNumber">pageNumber</param>
+            <param name="pageSize">pageSize</param>
+            <returns>Objeto JSON</returns>
+            <response code="200">Retorna a lista de vendas cadastradas.</response>
+            <response code="400">Se os dados forem Inválidos.</response>
+            <response code="401">Não autorizado.</response>
+            <response code="403">Acesso negado.</response>
+            <response code="417">Se os dados forem Inválidos.</response>
+            <response code="500">Se houver algum problema com o servidor.</response>
+        </member>
+        <member name="M:VendaController.GetVendaByIdAsync(System.String)">
+            <summary>
+            Venda pelo Id
+            </summary>
+            <param name="id">Id da venda</param>
+            <returns>Objeto JSON</returns>
+            <response code="200">Retorna a venda pelo Id.</response>
+            <response code="400">Se os dados forem Inválidos.</response>
+            <response code="401">Não autorizado.</response>
+            <response code="403">Acesso negado.</response>
+            <response code="417">Se os dados forem Inválidos.</response>
+            <response code="500">Se houver algum problema com o servidor.</response>
+        </member>
+        <member name="M:VendaController.PostVendaAsync(ApiBrechoRamires.Models.VendaModel)">
+            <summary>
+            Registrar uma venda
+            </summary>
+            <returns>Objeto JSON</returns>
+            <response code="200">Registra uma venda.</response>
+            <response code="400">Se os dados forem Inválidos.</response>
+            <response code="401">Não autorizado.</response>
+            <response code="403">Acesso negado.</response>
+            <response code="417">Se os dados forem Inválidos.</response>
+            <response code="500">Se houver algum problema com o servidor.</response>
+        </member>
+        <member name="M:VendaController.DeleteVendaAsync(System.String)">
+            <summary>
+            Apagar Venda pelo Id
+            </summary>
+            <param name="id">Código do produto</param>
+            <returns>Objeto JSON</returns>
+            <response code="200">Retorna a venda deletada.</response>
+            <response code="400">Se os dados forem Inválidos.</response>
+            <response code="401">Não autorizado.</response>
+            <response code="403">Acesso negado.</response>
+            <response code="417">Se os dados forem Inválidos.</response>
+            <response code="500">Se houver algum problema com o servidor.</response>
+        </member>
+        <member name="M:VendaController.EditVendaAsync(System.String,ApiBrechoRamires.Models.VendaModel)">
+            <summary>
+            Editar Venda pelo Id
+            </summary>
+            <param name="id">Id da venda</param>
             <param name="model">Modelo de dados do produto</param>
             <returns>Objeto JSON</returns>
             <response code="200">Retorna o produto deletado.</response>

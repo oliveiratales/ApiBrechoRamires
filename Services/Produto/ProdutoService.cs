@@ -101,7 +101,7 @@ namespace ApiBrechoRamires.Services
     
         #region POST
 
-        public async Task<PostProdutoDTO> PostProdutoAsync(ProdutoModel model)
+        public async Task<ResponseDTO> PostProdutoAsync(ProdutoModel model)
         {
             try
             {
@@ -156,7 +156,7 @@ namespace ApiBrechoRamires.Services
 
                 var novoProdutoId = novoProduto.Codigo;
 
-                var postProdutoDTO = new PostProdutoDTO
+                var postProdutoDTO = new ResponseDTO
                 {
                     Codigo = novoProdutoId,
                     Mensagem = "Produto registrado com sucesso!"
@@ -174,7 +174,7 @@ namespace ApiBrechoRamires.Services
 
         #region DELETE
 
-        public async Task<PostProdutoDTO?> DeleteProdutoAsync(string codigo)
+        public async Task<ResponseDTO?> DeleteProdutoAsync(string codigo)
         {
             try
             {
@@ -189,7 +189,7 @@ namespace ApiBrechoRamires.Services
                 _context.Produtos.Remove(produto);
                 await _context.SaveChangesAsync();
 
-                var deletedProdutoDTO = new PostProdutoDTO
+                var deletedProdutoDTO = new ResponseDTO
                 {
                     Codigo = produto.Codigo!,
                     Mensagem = "Produto excluído com sucesso!"
@@ -207,7 +207,7 @@ namespace ApiBrechoRamires.Services
 
         #region PUT
 
-        public async Task<PostProdutoDTO?> EditProdutoAsync(string codigo, ProdutoModel model)
+        public async Task<ResponseDTO?> EditProdutoAsync(string codigo, ProdutoModel model)
         {
             try
             {
@@ -233,7 +233,7 @@ namespace ApiBrechoRamires.Services
 
                 await _context.SaveChangesAsync();
 
-                var updatedProdutoDTO = new PostProdutoDTO
+                var updatedProdutoDTO = new ResponseDTO
                 {
                     Codigo = produto.Codigo!,
                     Mensagem = "Item atualizado com sucesso."

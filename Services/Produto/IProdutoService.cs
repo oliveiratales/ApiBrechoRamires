@@ -14,17 +14,17 @@ namespace ApiBrechoRamires.Services.Produto
         #endregion
 
         #region POST
-        Task<PostProdutoDTO> PostProdutoAsync(ProdutoModel model);
+        Task<ResponseDTO> PostProdutoAsync(ProdutoModel model);
 
         #endregion
 
         #region DELETE
-        Task<PostProdutoDTO?> DeleteProdutoAsync(string codigo);
+        Task<ResponseDTO?> DeleteProdutoAsync(string codigo);
 
         #endregion
 
         #region PUT
-        Task<PostProdutoDTO?> EditProdutoAsync(string codigo, ProdutoModel model);
+        Task<ResponseDTO?> EditProdutoAsync(string codigo, ProdutoModel model);
 
         #endregion
     }

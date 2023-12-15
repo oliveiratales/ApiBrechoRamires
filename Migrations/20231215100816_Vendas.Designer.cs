@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApiBrechoRamires.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231214085004_AdicionandoTipo")]
-    partial class AdicionandoTipo
+    [Migration("20231215100816_Vendas")]
+    partial class Vendas
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,9 +64,56 @@ namespace ApiBrechoRamires.Migrations
                     b.Property<int>("Tipo")
                         .HasColumnType("int");
 
+                    b.Property<int?>("VendaModelId")
+                        .HasColumnType("int");
+
                     b.HasKey("Codigo");
 
+                    b.HasIndex("VendaModelId");
+
                     b.ToTable("Produtos");
+                });
+
+            modelBuilder.Entity("ApiBrechoRamires.Models.VendaModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Cliente")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("DataVenda")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<decimal?>("Desconto")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<string>("FormaDePagamento")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<int>("Vendedor")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Vendas");
+                });
+
+            modelBuilder.Entity("ApiBrechoRamires.Models.ProdutoModel", b =>
+                {
+                    b.HasOne("ApiBrechoRamires.Models.VendaModel", null)
+                        .WithMany("ProdutosVendidos")
+                        .HasForeignKey("VendaModelId");
+                });
+
+            modelBuilder.Entity("ApiBrechoRamires.Models.VendaModel", b =>
+                {
+                    b.Navigation("ProdutosVendidos");
                 });
 #pragma warning restore 612, 618
         }

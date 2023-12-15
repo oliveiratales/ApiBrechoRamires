@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ApiBrechoRamires.DTO
 {
-    public class PostProdutoDTO
+    public class ResponseDTO
     {
         [Key]
         public required string Codigo { get; set; }

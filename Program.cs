@@ -2,6 +2,7 @@ using System.Reflection;
 using ApiBrechoRamires.Context;
 using ApiBrechoRamires.Services;
 using ApiBrechoRamires.Services.Produto;
+using ApiBrechoRamires.Services.Venda;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -11,6 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IProdutoService, ProdutoService>();
+builder.Services.AddScoped<IVendaService, VendaService>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
