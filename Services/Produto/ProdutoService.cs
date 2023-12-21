@@ -22,6 +22,7 @@ namespace ApiBrechoRamires.Services
             try
             {          
             var produtos = await _context.Produtos
+            .Where(produto => produto.Quantidade != 0) 
             .Skip((int)((pageNumber - 1) * pageSize))
             .Take((int)pageSize)
             .Select(produto => new ProdutoDTO
@@ -66,7 +67,7 @@ namespace ApiBrechoRamires.Services
             try
             {
                 var produto = await _context.Produtos
-                    .Where(produto => produto.Codigo == codigo)
+                    .Where(p => p.Codigo == codigo && p.Quantidade != 0)
                     .Select(produto => new ProdutoDTO
                     {
                         Codigo = produto.Codigo!,

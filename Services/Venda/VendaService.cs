@@ -20,6 +20,8 @@ namespace ApiBrechoRamires.Services.Venda
             try
             {
                 var vendas = await _context.Vendas
+                    .Include(v => v.VendaProdutos!)
+                    .ThenInclude(vp => vp.Produto!)
                     .Skip((int)((pageNumber - 1) * pageSize))
                     .Take((int)pageSize)
                     .Select(venda => new VendaDTO
@@ -31,21 +33,21 @@ namespace ApiBrechoRamires.Services.Venda
                         FormaDePagamento = venda.FormaDePagamento,
                         Cliente = venda.Cliente,
                         Vendedor = venda.Vendedor,
-                        Produtos = venda.ProdutosVendidos!.Select(produto => new ProdutoDTO
+                        Produtos = venda.VendaProdutos!.Select(vp => new ProdutoVendidoDTO
                         {
-                            Codigo = produto.Codigo!,
-                            Nome = produto.Nome,
-                            Quantidade = produto.Quantidade,
-                            Marca = produto.Marca,
-                            Tipo = produto.Tipo,
-                            Categoria = produto.Categoria,
-                            Cor = produto.Cor,
-                            Tamanho = produto.Tamanho,
-                            PrecoPago = produto.PrecoPago,
-                            Preco = produto.Preco,
-                            Origem = produto.Origem,
-                            Dono = produto.Dono
-                        }).ToList() ?? new List<ProdutoDTO>()
+                            Codigo = vp.Produto!.Codigo!,
+                            Nome = vp.Produto.Nome,
+                            Quantidade = vp.Quantidade,
+                            Marca = vp.Produto.Marca,
+                            Tipo = vp.Produto.Tipo,
+                            Categoria = vp.Produto.Categoria,
+                            Cor = vp.Produto.Cor,
+                            Tamanho = vp.Produto.Tamanho,
+                            PrecoPago = vp.Produto.PrecoPago,
+                            Preco = vp.Produto.Preco,
+                            Origem = vp.Produto.Origem,
+                            Dono = vp.Produto.Dono
+                        }).ToList() ?? new List<ProdutoVendidoDTO>()
                     })
                     .ToListAsync();
 
@@ -63,9 +65,9 @@ namespace ApiBrechoRamires.Services.Venda
 
                 return listModel;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw new Exception("Erro ao obter as vendas.", ex);
             }
         }
 
@@ -84,21 +86,21 @@ namespace ApiBrechoRamires.Services.Venda
                         FormaDePagamento = venda.FormaDePagamento,
                         Cliente = venda.Cliente,
                         Vendedor = venda.Vendedor,
-                        Produtos = venda.ProdutosVendidos!.Select(produto => new ProdutoDTO
+                        Produtos = venda.VendaProdutos!.Select(vp => new ProdutoVendidoDTO
                         {
-                            Codigo = produto.Codigo!,
-                            Nome = produto.Nome,
-                            Quantidade = produto.Quantidade,
-                            Marca = produto.Marca,
-                            Tipo = produto.Tipo,
-                            Categoria = produto.Categoria,
-                            Cor = produto.Cor,
-                            Tamanho = produto.Tamanho,
-                            PrecoPago = produto.PrecoPago,
-                            Preco = produto.Preco,
-                            Origem = produto.Origem,
-                            Dono = produto.Dono
-                        }).ToList() ?? new List<ProdutoDTO>()
+                            Codigo = vp.Produto!.Codigo!,
+                            Nome = vp.Produto.Nome,
+                            Quantidade = vp.Quantidade,
+                            Marca = vp.Produto.Marca,
+                            Tipo = vp.Produto.Tipo,
+                            Categoria = vp.Produto.Categoria,
+                            Cor = vp.Produto.Cor,
+                            Tamanho = vp.Produto.Tamanho,
+                            PrecoPago = vp.Produto.PrecoPago,
+                            Preco = vp.Produto.Preco,
+                            Origem = vp.Produto.Origem,
+                            Dono = vp.Produto.Dono
+                        }).ToList() ?? new List<ProdutoVendidoDTO>()
                     })
                     .FirstOrDefaultAsync();
 
@@ -128,6 +130,30 @@ namespace ApiBrechoRamires.Services.Venda
                 novaVenda.ProdutosVendidos = await CarregarDetalhesProdutosAsync(novaVenda.ListaProdutos);
 
                 _context.Vendas.Add(novaVenda);
+
+                foreach (var produtoVendido in novaVenda.ProdutosVendidos)
+                {
+                    var vendaProduto = new VendaProduto
+                    {
+                        ProdutoCodigo = produtoVendido.Codigo,
+                        Produto = produtoVendido,
+                        Venda = novaVenda,
+                        Quantidade = novaVenda.ListaProdutos!
+                            .FirstOrDefault(p => p.Codigo == produtoVendido.Codigo)
+                            ?.Quantidade ?? 0
+                    };
+
+                    var produto = await _context.Produtos
+                        .FirstOrDefaultAsync(p => p.Codigo == produtoVendido.Codigo);
+
+                    if (produto != null)
+                    {
+                        produto.Quantidade -= vendaProduto.Quantidade;
+                    }
+
+                    _context.VendaProdutos.Add(vendaProduto);
+                }
+
                 await _context.SaveChangesAsync();
 
                 var novaVendaId = novaVenda.Id;
@@ -151,6 +177,7 @@ namespace ApiBrechoRamires.Services.Venda
             try
             {
                 var venda = await _context.Vendas
+                    .Include(v => v.VendaProdutos)
                     .FirstOrDefaultAsync(v => v.Id.ToString() == codigo);
 
                 if (venda == null)
@@ -158,7 +185,20 @@ namespace ApiBrechoRamires.Services.Venda
                     return null;
                 }
 
+                foreach (var vendaProduto in venda.VendaProdutos!)
+                {
+                    var produto = await _context.Produtos
+                        .FirstOrDefaultAsync(p => p.Codigo == vendaProduto.ProdutoCodigo);
+
+                    if (produto != null)
+                    {
+                        produto.Quantidade += vendaProduto.Quantidade;
+                        produto.VendasAssociadas?.Remove(vendaProduto);                      
+                    }
+                }
+
                 _context.Vendas.Remove(venda);
+
                 await _context.SaveChangesAsync();
 
                 var deletedVendaDTO = new ResponseDTO
@@ -180,7 +220,7 @@ namespace ApiBrechoRamires.Services.Venda
             try
             {
                 var venda = await _context.Vendas
-                    .Include(v => v.ProdutosVendidos)
+                    .Include(v => v.VendaProdutos)
                     .FirstOrDefaultAsync(v => v.Id.ToString() == codigo);
 
                 if (venda == null)
@@ -196,7 +236,36 @@ namespace ApiBrechoRamires.Services.Venda
                 venda.Vendedor = model.Vendedor;
                 venda.ListaProdutos = model.ListaProdutos;
 
+                _context.VendaProdutos.RemoveRange(venda.VendaProdutos!);
+
                 venda.ProdutosVendidos = await CarregarDetalhesProdutosAsync(venda.ListaProdutos);
+
+                foreach (var produtoVendido in venda.ProdutosVendidos)
+                {
+                    var produto = await _context.Produtos
+                        .FirstOrDefaultAsync(p => p.Codigo == produtoVendido.Codigo);
+
+                    var qtdVenda = venda.VendaProdutos!.FirstOrDefault(p => p.ProdutoCodigo == produto!.Codigo)!.Quantidade;
+                    
+                    produto!.Quantidade += qtdVenda;
+                    
+                    var vendaProduto = new VendaProduto
+                    {
+                        ProdutoCodigo = produtoVendido.Codigo,
+                        Produto = produtoVendido,
+                        Venda = venda,
+                        Quantidade = venda.ListaProdutos!
+                            .FirstOrDefault(p => p.Codigo == produtoVendido.Codigo)
+                            ?.Quantidade ?? 0
+                    };
+                    
+                    if (produto != null)
+                    {
+                        produto.Quantidade -= vendaProduto.Quantidade;                     
+                    }
+
+                    _context.VendaProdutos.Add(vendaProduto);
+                }
 
                 await _context.SaveChangesAsync();
 
@@ -214,15 +283,17 @@ namespace ApiBrechoRamires.Services.Venda
             }
         }
 
-        private async Task<List<ProdutoModel>> CarregarDetalhesProdutosAsync(List<string>? listaProdutos)
+        private async Task<List<ProdutoModel>> CarregarDetalhesProdutosAsync(List<ProdutoQuantidadeDTO>? listaProdutos)
         {
             if (listaProdutos == null || listaProdutos.Count == 0)
             {
                 return new List<ProdutoModel>();
             }
 
+            var codigosProdutos = listaProdutos.Select(produto => produto.Codigo).ToList();
+
             var produtos = await _context.Produtos
-                .Where(p => listaProdutos.Contains(p.Codigo!))
+                .Where(p => codigosProdutos.Contains(p.Codigo!))
                 .ToListAsync();
 
             return produtos;

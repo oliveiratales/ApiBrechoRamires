@@ -1,7 +1,8 @@
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
-using ApiBrechoRamires.DTO;
 
 namespace ApiBrechoRamires.Models
 {
@@ -14,18 +15,36 @@ namespace ApiBrechoRamires.Models
 
         [JsonIgnore]
         public DateTime DataVenda { get; set; }
-        public required decimal Valor { get; set; }
+
+        [Required]
+        public decimal Valor { get; set; }
+
         public decimal? Desconto { get; set; }
+
+        [Required]
         public required string FormaDePagamento { get; set; }
+
         public string? Cliente { get; set; }
-        public required int Vendedor { get; set; }
+
+        [Required]
+        public int Vendedor { get; set; }
 
         // POST e PUT (Somente código)
         [NotMapped]
-        public List<string>? ListaProdutos { get; set; }
+        public List<ProdutoQuantidadeDTO>? ListaProdutos { get; set; }
 
         // GET's (Todas informações)
         [JsonIgnore]
         public List<ProdutoModel>? ProdutosVendidos { get; set; }
+
+        // Tabela de junção
+        [JsonIgnore]
+        public List<VendaProduto>? VendaProdutos { get; set; } = new List<VendaProduto>();
+    }
+
+    public class ProdutoQuantidadeDTO
+    {
+        public required string Codigo { get; set; }
+        public int Quantidade { get; set; }
     }
 }

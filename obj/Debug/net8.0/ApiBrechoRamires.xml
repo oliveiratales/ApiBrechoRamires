@@ -16,6 +16,90 @@
         <member name="M:ApiBrechoRamires.Migrations.Vendas.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
+        <member name="T:ApiBrechoRamires.Migrations.CreateTable">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.CreateTable.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.CreateTable.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.CreateTable.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:ApiBrechoRamires.Migrations.CreateDB">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.CreateDB.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.CreateDB.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.CreateDB.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:ApiBrechoRamires.Migrations.CreateDB1">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.CreateDB1.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.CreateDB1.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.CreateDB1.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:ApiBrechoRamires.Migrations.CreateDb2">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.CreateDb2.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.CreateDb2.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.CreateDb2.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:ApiBrechoRamires.Migrations.CreateDb3">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.CreateDb3.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.CreateDb3.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.CreateDb3.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:ApiBrechoRamires.Migrations.Teste">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.Teste.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.Teste.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.Teste.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:ApiBrechoRamires.Migrations.Teste1">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.Teste1.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.Teste1.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.Teste1.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
         <member name="M:ProdutoController.GetProdutosAsync(System.UInt32,System.UInt32)">
             <summary>
             Lista de Produtos Cadastrados

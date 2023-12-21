@@ -24,6 +24,6 @@ namespace ApiBrechoRamires.DTO
         [Required]
         public int Vendedor { get; set; }
 
-        public required List<ProdutoDTO> Produtos { get; set; }
+        public required List<ProdutoVendidoDTO> Produtos { get; set; }
     }
 }
