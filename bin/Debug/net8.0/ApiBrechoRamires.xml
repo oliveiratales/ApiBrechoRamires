@@ -4,6 +4,73 @@
         <name>ApiBrechoRamires</name>
     </assembly>
     <members>
+        <member name="M:ApiBrechoRamires.Controllers.UsuarioController.LoginAsync(System.String,System.String)">
+            <summary>
+            Login
+            </summary>
+            <param name="email">Email</param>
+            <param name="senha">Senha</param>
+            <returns>Objeto JSON</returns>
+            <response code="200">Retorna a autenticação do sistema.</response>
+            <response code="400">Se os dados forem Inválidos.</response>
+            <response code="401">Não autorizado.</response>
+            <response code="403">Acesso negado.</response>
+            <response code="417">Se os dados forem Inválidos.</response>
+            <response code="500">Se houver algum problema com o servidor.</response>
+        </member>
+        <member name="M:ApiBrechoRamires.Controllers.UsuarioController.GetUserAsync(System.UInt32,System.UInt32)">
+            <summary>
+            Lista de usuário
+            </summary>
+            <param name="pageNumber">pageNumber</param>
+            <param name="pageSize">pageSize</param>
+            <returns>Objeto JSON</returns>
+            <response code="200">Retorna a lista de usuários cadastrados.</response>
+            <response code="400">Se os dados forem Inválidos.</response>
+            <response code="401">Não autorizado.</response>
+            <response code="403">Acesso negado.</response>
+            <response code="417">Se os dados forem Inválidos.</response>
+            <response code="500">Se houver algum problema com o servidor.</response>
+        </member>
+        <member name="M:ApiBrechoRamires.Controllers.UsuarioController.PostUserAsync(ApiBrechoRamires.Models.LoginModel)">
+            <summary>
+            Registrar um usuário
+            </summary>
+            <returns>Objeto JSON</returns>
+            <response code="200">Registra um novo usuário.</response>
+            <response code="400">Se os dados forem Inválidos.</response>
+            <response code="401">Não autorizado.</response>
+            <response code="403">Acesso negado.</response>
+            <response code="417">Se os dados forem Inválidos.</response>
+            <response code="500">Se houver algum problema com o servidor.</response>
+        </member>
+        <member name="M:ApiBrechoRamires.Controllers.UsuarioController.DeleteUserAsync(System.Int32)">
+            <summary>
+            Apagar usuário pelo código
+            </summary>
+            <param name="id">Código do usuário</param>
+            <returns>Objeto JSON</returns>
+            <response code="200">Retorna o produto deletado.</response>
+            <response code="400">Se os dados forem Inválidos.</response>
+            <response code="401">Não autorizado.</response>
+            <response code="403">Acesso negado.</response>
+            <response code="417">Se os dados forem Inválidos.</response>
+            <response code="500">Se houver algum problema com o servidor.</response>
+        </member>
+        <member name="M:ApiBrechoRamires.Controllers.UsuarioController.EditUserAsync(System.Int32,ApiBrechoRamires.Models.LoginModel)">
+            <summary>
+            Editar usuário pelo código
+            </summary>
+            <param name="id">Código do usuário</param>
+            <param name="model">Modelo de dados do usuário</param>
+            <returns>Objeto JSON</returns>
+            <response code="200">Retorna o produto deletado.</response>
+            <response code="400">Se os dados forem Inválidos.</response>
+            <response code="401">Não autorizado.</response>
+            <response code="403">Acesso negado.</response>
+            <response code="417">Se os dados forem Inválidos.</response>
+            <response code="500">Se houver algum problema com o servidor.</response>
+        </member>
         <member name="T:ApiBrechoRamires.Migrations.Vendas">
             <inheritdoc />
         </member>
@@ -98,6 +165,42 @@
             <inheritdoc />
         </member>
         <member name="M:ApiBrechoRamires.Migrations.Teste1.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:ApiBrechoRamires.Migrations.CreatingVendaProdutoTable">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.CreatingVendaProdutoTable.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.CreatingVendaProdutoTable.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.CreatingVendaProdutoTable.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:ApiBrechoRamires.Migrations.CreatingLoginTable">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.CreatingLoginTable.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.CreatingLoginTable.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.CreatingLoginTable.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:ApiBrechoRamires.Migrations.CreatingLoginTable1">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.CreatingLoginTable1.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.CreatingLoginTable1.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiBrechoRamires.Migrations.CreatingLoginTable1.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
         <member name="M:ProdutoController.GetProdutosAsync(System.UInt32,System.UInt32)">

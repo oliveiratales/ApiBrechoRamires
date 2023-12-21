@@ -1,6 +1,7 @@
 using System.Reflection;
 using ApiBrechoRamires.Context;
 using ApiBrechoRamires.Services;
+using ApiBrechoRamires.Services.Login;
 using ApiBrechoRamires.Services.Produto;
 using ApiBrechoRamires.Services.Venda;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IProdutoService, ProdutoService>();
 builder.Services.AddScoped<IVendaService, VendaService>();
+builder.Services.AddScoped<ILoginService, LoginService>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {

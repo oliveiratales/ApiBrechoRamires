@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "vwxblplNU1DK5oMOjg0tksYKi5CfLrRaQ9GSRHL+8PxTp8qAcLO3ybZl9Mz9SeuYxnOnoy3depJfOMLrdX1+VQ==",
+  "dgSpecHash": "t40bmoorCfYN+iS+PbIuy0jOHQCIAqKimjGHD765pY/lNSpXSE9r0iTiTLb1KrhoIJp9zOWrhKe4Z5AnSYiMPA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Tales\\source\\repos\\ApiBrechoRamires\\ApiBrechoRamires\\ApiBrechoRamires.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Tales\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\Tales\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
+    "C:\\Users\\Tales\\.nuget\\packages\\bcrypt.net\\0.1.0\\bcrypt.net.0.1.0.nupkg.sha512",
     "C:\\Users\\Tales\\.nuget\\packages\\google.protobuf\\3.21.9\\google.protobuf.3.21.9.nupkg.sha512",
     "C:\\Users\\Tales\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\Tales\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
@@ -245,5 +246,16 @@
     "C:\\Users\\Tales\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\Tales\\.nuget\\packages\\zstdsharp.port\\0.7.1\\zstdsharp.port.0.7.1.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "O pacote 'BCrypt.Net 0.1.0' foi restaurado usando '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' em vez da estrutura de destino do projeto 'net8.0'. Esse pacote pode não ser totalmente compatível com o seu projeto.",
+      "libraryId": "BCrypt.Net",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
 }
